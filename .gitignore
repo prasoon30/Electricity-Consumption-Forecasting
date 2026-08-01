@@ -1,0 +1,11 @@
+# Large raw dataset — see README for download link
+notebook/household_power_consumption.txt
+
+# Editor config
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
