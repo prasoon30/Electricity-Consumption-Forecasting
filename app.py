@@ -268,10 +268,14 @@ if model is None:
 # --- Sidebar: data source + horizon ---
 st.sidebar.header("Settings")
 
-data_source = st.sidebar.radio(
-    "Data source",
-    ["Use bundled dataset", "Upload custom data"],
-)
+if os.path.exists(DEFAULT_DATA_PATH):
+    data_source = st.sidebar.radio(
+        "Data source",
+        ["Use bundled dataset", "Upload custom data"],
+    )
+else:
+    st.sidebar.warning("Bundled dataset not found. Please upload your dataset.")
+    data_source = "Upload custom data"
 
 uploaded_file = None
 if data_source == "Upload custom data":
@@ -305,11 +309,7 @@ if uploaded_file is not None:
         data_df = None
 elif data_source == "Use bundled dataset":
     data_df = load_default_data()
-    if data_df is None:
-        st.warning(
-            "Bundled dataset not found at `notebook/household_power_consumption.txt`. "
-            "Upload custom data instead."
-        )
+    
 else:
     data_df = None
 
